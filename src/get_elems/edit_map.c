@@ -58,6 +58,7 @@ void edit_map(void)
     switch (engine->settings->draw_mode) {
     case texture:
         edit_texture_map();
+        play_sound();
         break;
     case color:
         edit_color_map();
@@ -101,7 +102,7 @@ void edit_texture_map(void)
             temp_rect.top + temp_rect.height / 2};
             if (get_distance(temp_vect, (sfVector2f){mouse.x, mouse.y}) <
             GET_SET_RAD(engine)) {
-                GET_TEX_2D(engine)[i][j] = engine->render->dirt;
+                GET_TEX_2D(engine)[i][j] = GET_TEXTURE(engine);
             }
         }
     }
