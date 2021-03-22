@@ -15,6 +15,7 @@
 #include <SFML/Config.h>
 #include <sys/queue.h>
 #include <sys/types.h>
+#include <dirent.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdbool.h>
@@ -193,10 +194,13 @@ typedef struct {
 } line_t;
 
 typedef struct {
-    sfFont *font;
-    sfText *text;
-    char *map;
-} ascii_map_t;
+    unsigned char *map;
+    sfImage *image;
+    sfTexture *tex;
+    sfSprite *sprite;
+    int x;
+    int y;
+} image_map_t;
 
 // CREATE_COMPONENT
 void create_settings(void);
@@ -369,19 +373,20 @@ float perlin_noise_2d(float x, float y, int seed);
 float perlin_noise(float x_freq, float y_freq, int depth, int seed);
 
 // SAVE_MAP
+char *my_strdup_plus(char *str, int basic, int plus);
 void write_map(char *path);
 char *get_map_nbr(void);
 void save_map(void);
 
 // ASCII_MAP
-ascii_map_t *create_ascii_map(char *path);
-time_elapsed_t *create_time_ascii(void);
-void get_ascii_evt(sfRenderWindow *window, sfEvent event, ascii_map_t *map,
+image_map_t *create_image_map(char *path);
+time_elapsed_t *create_time_image(void);
+void get_image_evt(sfRenderWindow *window, sfEvent event, image_map_t *map,
 time_elapsed_t *time);
-void get_arrow(sfEvent event, ascii_map_t *map, time_elapsed_t *time);
-void draw_ascii_map(sfRenderWindow *window, ascii_map_t *map);
-int loop_ascii(char *path);
-void destroy_ascii_elem(ascii_map_t *map, time_elapsed_t *time,
+void get_arrow(sfEvent event, image_map_t *map, time_elapsed_t *time);
+void draw_image_map(sfRenderWindow *window, image_map_t *map);
+int loop_image(char *path);
+void destroy_image_elem(image_map_t *map, time_elapsed_t *time,
 sfRenderWindow *window);
 
 void start_engine(void);

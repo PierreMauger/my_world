@@ -84,11 +84,11 @@ SRC		 =	src/create_elems/create_engine.c									\
 			src/load_map/file_to_map.c											\
 			src/perlin_noise/perlin_noise.c										\
 			src/save_map/save_map.c												\
-			src/ascii_map/loop_ascii.c											\
-			src/ascii_map/get_ascii_event.c										\
-			src/ascii_map/create_ascii_map.c									\
-			src/ascii_map/draw_ascii_map.c										\
-			src/ascii_map/destroy_ascii_elem.c									\
+			src/image_map/loop_image.c											\
+			src/image_map/get_image_event.c										\
+			src/image_map/create_image_map.c									\
+			src/image_map/draw_image_map.c										\
+			src/image_map/destroy_image_elem.c									\
 
 SRC_MAIN =	main.c	\
 
@@ -120,7 +120,6 @@ all:	$(NAME)
 clean:
 	@make clean -C lib/my
 	@make clean -C lib/button
-	@make clean -C bonus
 	@(rm -f $(OBJ)) > /dev/null
 	@find . -name "*.gcno" -delete
 	@find . -name "*.gcda" -delete
@@ -129,8 +128,8 @@ clean:
 fclean:	clean
 	@make fclean -C lib/my
 	@make fclean -C lib/button
-	@make fclean -C bonus
 	@rm -f $(NAME)
+	@rm -f asset/image_map/image.png
 	@(rm -f $(NAME) $(NAME_TEST)) > /dev/null
 	@(rm -rf tests/coverage) > /dev/null
 	@$(ECHO) $(CLEAR)
@@ -140,7 +139,6 @@ re:	fclean all
 debug:
 	@make -C lib/my
 	@make -C lib/button
-	@make -C bonus
 	gcc $(SRC) $(SRC_MAIN) -o $(NAME) $(CFLAGS) $(CFLAGS_DEBUG)
 
 unit_tests: $(OBJ_TEST)
